@@ -39,9 +39,9 @@ func (CfRecycleCmd) GetMetadata() plugin.PluginMetadata {
 	return plugin.PluginMetadata{
 		Name: PluginName,
 		Version: plugin.VersionType{
-			Major: 0,
+			Major: 1,
 			Minor: 0,
-			Build: 1,
+			Build: 0,
 		},
 		Commands: []plugin.Command{
 			{
@@ -101,6 +101,10 @@ func (cmd *CfRecycleCmd) restartInstance(cliConnection plugin.CliConnection, arg
 	restartArgs := []string{"restart-app-instance", args[1], strconv.Itoa(i)}
 	fmt.Printf("Restarting %s instance: %v\n", args[1], i)
 	if _, err := cliConnection.CliCommandWithoutTerminalOutput(restartArgs...); err == nil {
+		for state != "down" {
+			state = cmd.getInstanceStatus(cliConnection, i, args[1])
+			time.Sleep(10 * time.Second)
+		}
 		for state != "running" {
 			state = cmd.getInstanceStatus(cliConnection, i, args[1])
 			time.Sleep(10 * time.Second)
