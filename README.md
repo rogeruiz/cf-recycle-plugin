@@ -1,5 +1,7 @@
 # cf-recycle-plugin
 
+[![CircleCI](https://circleci.com/gh/rogeruiz/cf-recycle-plugin.svg?style=svg)](https://circleci.com/gh/rogeruiz/cf-recycle-plugin)
+
 This Cloudfoundry cli plugin is to allow the recycling of application instances without interruption to the application availability.
 
 The plugin works by restarting individual Application Instances(AI's) waiting for one to fully restart before moving on to the next.
