@@ -26,29 +26,29 @@ jobs:
           name: build linux64
           environment:
             GOOS: "linux"
-            GOOS: "amd64"
+            GOARCH: "amd64"
           command: go build -o deploy/cf-recycle-plugin.linux64
       - run:
           name: build linux32
           environment:
             GOOS: "linux"
-            GOOS: "386"
+            GOARCH: "386"
           command: go build -o deploy/cf-recycle-plugin.linux32
       - run:
           name: build win64
           environment:
             GOOS: "windows"
-            GOOS: "amd64"
+            GOARCH: "amd64"
           command: go build -o deploy/cf-recycle-plugin.win64
       - run:
           name: build win32
           environment:
             GOOS: "windows"
-            GOOS: "386"
+            GOARCH: "386"
           command: go build -o deploy/cf-recycle-plugin.win32
       - run:
           name: build darwin64
           environment:
             GOOS: "darwin"
-            GOOS: "amd64"
+            GOARCH: "amd64"
           command: go build -o deploy/cf-recycle-plugin.osx
