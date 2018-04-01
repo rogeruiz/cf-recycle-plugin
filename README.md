@@ -12,9 +12,8 @@ The plugin works by restarting individual Application Instances(AI's) waiting fo
 
 ### Installation from Source
 ```sh
-git clone git@github.com:comcast/cf-recycle-plugin.git
-go get github.com/cloudfoundry/cli
-godep go build -o deploy/cf-recycle-plugin
+dep ensure -v
+go build -o deploy/cf-recycle-plugin
 cf install-plugin deploy/cf-recycle-plugin -f
 ```
 ### Download
