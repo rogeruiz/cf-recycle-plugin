@@ -1,0 +1,54 @@
+# Golang CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-go/ for more details
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.10
+    working_directory: /go/src/github.com/rogeruiz/cf-recycle-plugin
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - vendor-cache-{{ .Branch }}-{{ checksum "Gopkg.lock" }}
+            - vendor-cache
+      - run: go get -u github.com/golang/dep/cmd/dep
+      - run: dep ensure -v
+      - save_cache:
+          key: vendor-cache-{{ .Branch }}-{{ checksum "Gopkg.lock" }}
+          paths:
+            - vendor
+
+      - run: go vet ./...
+      - run: go test -race -cover -v ./...
+      - run:
+          name: build linux64
+          environment:
+            GOOS: "linux"
+            GOARCH: "amd64"
+          command: go build -o deploy/cf-recycle-plugin.linux64
+      - run:
+          name: build linux32
+          environment:
+            GOOS: "linux"
+            GOARCH: "386"
+          command: go build -o deploy/cf-recycle-plugin.linux32
+      - run:
+          name: build win64
+          environment:
+            GOOS: "windows"
+            GOARCH: "amd64"
+          command: go build -o deploy/cf-recycle-plugin.win64
+      - run:
+          name: build win32
+          environment:
+            GOOS: "windows"
+            GOARCH: "386"
+          command: go build -o deploy/cf-recycle-plugin.win32
+      - run:
+          name: build darwin64
+          environment:
+            GOOS: "darwin"
+            GOARCH: "amd64"
+          command: go build -o deploy/cf-recycle-plugin.osx
