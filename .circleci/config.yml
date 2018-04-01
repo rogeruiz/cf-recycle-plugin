@@ -52,3 +52,6 @@ jobs:
             GOOS: "darwin"
             GOARCH: "amd64"
           command: go build -o deploy/cf-recycle-plugin.osx
+
+      - store_artifacts:
+          path: deploy
