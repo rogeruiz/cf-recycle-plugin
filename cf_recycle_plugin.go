@@ -39,9 +39,9 @@ func (CfRecycleCmd) GetMetadata() plugin.PluginMetadata {
 	return plugin.PluginMetadata{
 		Name: PluginName,
 		Version: plugin.VersionType{
-			Major: 0,
+			Major: 1,
 			Minor: 0,
-			Build: 1,
+			Build: 0,
 		},
 		Commands: []plugin.Command{
 			{
