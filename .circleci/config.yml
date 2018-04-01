@@ -6,7 +6,7 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.10
-    working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
+    working_directory: /go/src/github.com/rogeruiz/cf-recycle-plugin
     steps:
       - checkout
       - restore_cache:
@@ -27,28 +27,28 @@ jobs:
           environment:
             GOOS: "linux"
             GOOS: "amd64"
-          command: go build -o deploy/{{REPO_NAME}}.linux64
+          command: go build -o deploy/cf-recycle-plugin.linux64
       - run:
           name: build linux32
           environment:
             GOOS: "linux"
             GOOS: "386"
-          command: go build -o deploy/{{REPO_NAME}}.linux32
+          command: go build -o deploy/cf-recycle-plugin.linux32
       - run:
           name: build win64
           environment:
             GOOS: "windows"
             GOOS: "amd64"
-          command: go build -o deploy/{{REPO_NAME}}.win64
+          command: go build -o deploy/cf-recycle-plugin.win64
       - run:
           name: build win32
           environment:
             GOOS: "windows"
             GOOS: "386"
-          command: go build -o deploy/{{REPO_NAME}}.win32
+          command: go build -o deploy/cf-recycle-plugin.win32
       - run:
           name: build darwin64
           environment:
             GOOS: "darwin"
             GOOS: "amd64"
-          command: go build -o deploy/{{REPO_NAME}}.osx
+          command: go build -o deploy/cf-recycle-plugin.osx
